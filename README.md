@@ -27,7 +27,8 @@ Please go to your Alma Dashboard.
 Open the program file that is already in EVE 2.0 or the one downloaded from this github page. 
 1. Once prompted, input your initials into the window.
 2. Confirm your initials.
-3. Please drag your excel sheet from your downloads folder into the terminal. ![til](https://raw.githubusercontent.com/Honuluau/alma-automatic-suspension/main/gifs/drag-and-drop.gif)
+3. Please drag your excel sheet from your downloads folder into the terminal as shown below:  
+> <img src="/gifs/drag-and-drop.gif" width="480" height="270"/>  
 4. Ensure you have the terminal selected and press enter.
 
 ### Using the text file.
