@@ -14,6 +14,7 @@ initials = ""
 output_file_path = os.path.expanduser("~")
 
 # This makes the Alma-Automatic-Suspensions folder
+# noinspection PyBroadException
 try:
     os.makedirs(os.path.expanduser("~") + "/Alma-Automatic-Suspensions")
     output_file_path = output_file_path + "/Alma-Automatic-Suspensions"
@@ -167,6 +168,7 @@ with open(output_file_path, "w", encoding='utf-8') as file:
             file.write("UserId: " + str(cell_user_id) + "\nName: " + str(data[cell_user_id]["Name"]) + "\n" + str(data[cell_user_id]["DaysOverdue"]) + " days overdue.\n" + suspensionNote + "\nThese are the item barcodes in order: " + itemBarcodes + "\n")
 
 # This opens up the exported text file.
+# noinspection PyBroadException
 try:
     os.system(output_file_path)
 except Exception as e:
