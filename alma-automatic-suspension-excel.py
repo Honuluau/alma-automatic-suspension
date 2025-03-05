@@ -60,7 +60,7 @@ previousId = None # placeholder
 previousIterator = 0
 
 # Adds to the dictionary where the key is the userId, and the values are another dictionary. 
-def addData(id):
+def add_data(id):
     global previousId
     global previousIterator
     # Assigning a new user Id.
@@ -108,13 +108,13 @@ for row in range(0, activeSheet.max_row):
         # This checks to see if the id is a string since Community Member's id's start with a letter.
         if isinstance(id, str):
             if id.isnumeric():
-                addData(id)
+                add_data(id)
             else:
                 # Community Member Id
                 if id[1:].isnumeric():
-                    addData(id)
+                    add_data(id)
         else:
-            addData(id)
+            add_data(id)
 
 # Sorts data using lambda to the DaysOverdue from earliest to longest overdues.
 sorted_data = dict(sorted(data.items(), key=lambda x: x[1]['DaysOverdue']))
