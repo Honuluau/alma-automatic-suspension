@@ -11,7 +11,17 @@ currentDate = date.today()
 # outputFilePath refers to the user's home, on windows it is the "Documents" folder and creates a new text file named after the date.
 url = ""
 initials = ""
-outputFilePath = os.path.expanduser("~") + "/alma-automatic-suspension-output-" + str(currentDate.month) + "-" + str(currentDate.day) + "-" + str(currentDate.year) + ".txt"
+outputFilePath = os.path.expanduser("~")
+
+# This makes the Alma-Automatic-Suspensions folder
+try:
+    os.makedirs(os.path.expanduser("~") + "/Alma-Automatic-Suspensions")
+    outputFilePath = outputFilePath + "/Alma-Automatic-Suspensions"
+    print(f"Alma Automatic Suspension Directory created in : {outputFilePath}")
+except:
+    print(f"Alma Automatic Suspension Directory found in: {outputFilePath}")
+
+outputFilePath = outputFilePath + "/alma-automatic-suspension-output-" + str(currentDate.month) + "-" + str(currentDate.day) + "-" + str(currentDate.year) + ".txt"
 
 # These variables are in regards to legal letters. BreakLine is the line to seperate the legal letter suspensions.
 # legalLetterRequirement is the count of days an item can be overdue before being sent a legal letter, if it's one day over it gets seperated.
