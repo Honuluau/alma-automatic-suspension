@@ -24,8 +24,8 @@ except:
 
 output_file_path = output_file_path + "/alma-automatic-suspension-output-" + str(current_date.month) + "-" + str(current_date.day) + "-" + str(current_date.year) + ".txt"
 
-# These variables are in regards to legal letters. BreakLine is the line to seperate the legal letter suspensions.
-# legalLetterRequirement is the count of days an item can be overdue before being sent a legal letter, if it's one day over it gets seperated.
+# These variables are to separate the suspends that need legal letters.
+# legalLetterRequirement is the count of days an item can be overdue before being sent a legal letter, if it's one day over it gets separated.
 break_line = False
 legal_letter_requirement = 30
 
@@ -37,13 +37,13 @@ while initials == "":
     if str.lower(confirmation) == "y":
         initials = newInitials
 
-# This is a loop to get a working directory url to the excel sheet. If the format has backslashes, it will be convertered for use.
+# This is a loop to get a working directory url to the Excel sheet. If the format has backslashes, it will be converted for use.
 while url == "":
     newUrl = input("Please drag the file to this window, and make sure this window is selected, then press enter:\n")
     newUrl = newUrl.replace("\"", "")
     newUrl = newUrl.replace("\\", "/")
 
-    print("Filepath recieved: " + newUrl)
+    print("Filepath received: " + newUrl)
     if os.path.exists(newUrl):
         url = newUrl
     else:
@@ -74,7 +74,7 @@ previous_iterator = 0
 def add_data(user_id):
     global previous_user_id
     global previous_iterator
-    # Assigning a new user Id.
+    # Assigning a new user id.
     data[user_id] = {}
     data[user_id]["Items"] = {}
     data[user_id]["Row"] = row
@@ -95,7 +95,7 @@ def add_data(user_id):
 # This section organizes it into data.
 for row in range(0, active_sheet.max_row):
 
-    # Iterates over sheet to find the user id rows and to not cause dupliates with multiple lost items.
+    # Iterates over sheet to find the user id rows and to not cause duplicates with multiple lost items.
     for col in active_sheet.iter_cols(1, 1):
         cell_user_id = col[row].value
 
@@ -121,13 +121,13 @@ for row in range(0, active_sheet.max_row):
             if cell_user_id.isnumeric():
                 add_data(cell_user_id)
             else:
-                # Community Member Id
+                # Community Member ids start with a letter.
                 if cell_user_id[1:].isnumeric():
                     add_data(cell_user_id)
         else:
             add_data(cell_user_id)
 
-# Sorts data using lambda to the DaysOverdue from earliest to longest overdues.
+# Sorts data using lambda to the DaysOverdue from earliest to longest overdue items.
 sorted_data = dict(sorted(data.items(), key=lambda x: x[1]['DaysOverdue']))
 
 # Opens the output file path to start writing in the utf-8 encoding format.
@@ -173,7 +173,7 @@ try:
     os.system(output_file_path)
 except Exception as e:
     # This has never happened during testing but is a precaution just in case something goes wrong.
-    print("An error occured while opening the notepad, but can still be found under the Documents folder.")
+    print("An error occurred while opening the notepad, but can still be found under the Documents folder.")
 
 # Extends the program's lifetime to view the window just in case it's needed.
 print("This window will close in 30 seconds.")
