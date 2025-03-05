@@ -1,6 +1,6 @@
 # Alma automatic suspension
 
-This is an easy to use python script that automatically lists and formats a suspension note of a student with overdue items. The script does not suspend people automatically, human supervision is required. The user must copy and paste the formatted suspension note to the `Add Note` block in Alma.
+This is an easy-to-use python script that automatically lists and formats a suspension note of a student with overdue items. The script does not suspend people automatically, human supervision is required. The user must copy and paste the formatted suspension note to the `Add Note` block in Alma.
 
 ## How to use.
 > [!CAUTION]
@@ -8,7 +8,7 @@ This is an easy to use python script that automatically lists and formats a susp
 > 
 > You must have a version of python installed on your local user to run this file. You can find python here: [https://www.python.org/downloads/](https://www.python.org/downloads/)
 > 
-> This script has 1 dependancy, OpenPyXL. Please run the following command in your "Command Prompt" after installing python:
+> This script has 1 dependency, OpenPyXL. Please run the following command in your "Command Prompt" after installing python:
 > ```
 > py -m pip install openpyxl
 > ```
@@ -27,7 +27,7 @@ Please go to your Alma Dashboard.
 Open the python (.py) file that is already in EVE 2.0 or the one downloaded from this github page. 
 1. Once prompted, input your initials into the window.
 2. Confirm your initials.
-3. Please drag your excel sheet from your downloads folder into the terminal as shown below:  
+3. Please drag your Excel sheet from your downloads folder into the terminal as shown below:  
 > <img src="/gifs/drag-and-drop.gif" width="480" height="270"/>  
 4. Ensure you have the terminal selected and press enter.
 
