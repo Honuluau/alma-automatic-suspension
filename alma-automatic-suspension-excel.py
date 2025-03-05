@@ -100,8 +100,8 @@ for row in range(0, active_sheet.max_row):
         cell_user_id = col[row].value
 
         # A blank entry was listed which in most cases is another item, this assigns new items to the previous id.
-        if cell_user_id == None:
-            if previous_user_id != None:
+        if cell_user_id is None:
+            if previous_user_id is not None:
                 previous_iterator += 1
                 print("[AAS] Another Item Found, Item " + str(previous_iterator))
 
