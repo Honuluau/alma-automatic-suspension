@@ -1,8 +1,6 @@
 import openpyxl
 import time
-import sys
 import os
-import operator
 from datetime import date
 
 # The date.
