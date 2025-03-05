@@ -70,25 +70,25 @@ previousId = None # placeholder
 previousIterator = 0
 
 # Adds to the dictionary where the key is the userId, and the values are another dictionary. 
-def add_data(id):
+def add_data(user_id):
     global previousId
     global previousIterator
     # Assigning a new user Id.
-    data[id] = {}
-    data[id]["Items"] = {}
-    data[id]["Row"] = row
-    data[id]["DaysOverdue"] = activeSheet["G"][row].value
-    data[id]["Name"] = activeSheet["C"][row].value + ", " + activeSheet["B"][row].value
-    data[id]["Items"]["Item1"] = {
+    data[user_id] = {}
+    data[user_id]["Items"] = {}
+    data[user_id]["Row"] = row
+    data[user_id]["DaysOverdue"] = activeSheet["G"][row].value
+    data[user_id]["Name"] = activeSheet["C"][row].value + ", " + activeSheet["B"][row].value
+    data[user_id]["Items"]["Item1"] = {
         "Title": activeSheet["I"][row].value,
         "ProcessStatus": activeSheet["J"][row].value,
         "Barcode": activeSheet["H"][row].value
     }
 
     # Assigning previous variables to find multiple items in the sheet.
-    previousId = id
+    previousId = user_id
     previousIterator = 1
-    print("[AAS] New UserId Found: " + str(id))
+    print("[AAS] New UserId Found: " + str(user_id))
 
 
 # This section organizes it into data.
@@ -96,10 +96,10 @@ for row in range(0, activeSheet.max_row):
 
     # Iterates over sheet to find the user id rows and to not cause dupliates with multiple lost items.
     for col in activeSheet.iter_cols(1,1):
-        id = col[row].value
+        cell_user_id = col[row].value
 
         # A blank entry was listed which in most cases is another item, this assigns new items to the previous id.
-        if id == None:
+        if cell_user_id == None:
             if previousId != None:
                 previousIterator += 1
                 print("[AAS] Another Item Found, Item " + str(previousIterator))
@@ -116,32 +116,32 @@ for row in range(0, activeSheet.max_row):
             }
             continue
         # This checks to see if the id is a string since Community Member's id's start with a letter.
-        if isinstance(id, str):
-            if id.isnumeric():
-                add_data(id)
+        if isinstance(cell_user_id, str):
+            if cell_user_id.isnumeric():
+                add_data(cell_user_id)
             else:
                 # Community Member Id
-                if id[1:].isnumeric():
-                    add_data(id)
+                if cell_user_id[1:].isnumeric():
+                    add_data(cell_user_id)
         else:
-            add_data(id)
+            add_data(cell_user_id)
 
 # Sorts data using lambda to the DaysOverdue from earliest to longest overdues.
 sorted_data = dict(sorted(data.items(), key=lambda x: x[1]['DaysOverdue']))
 
 # Opens the output file path to start writing in the utf-8 encoding format.
 with open(outputFilePath, "w", encoding='utf-8') as file:
-    for id in sorted_data:
+    for cell_user_id in sorted_data:
         # This is the data produced by a person.
 
         suspensionNote = "SUSPENDED / Instance#X / LOST ["
         itemsLost = ""
         itemBarcodes = ""
         # This assigns itemsLost and itemBarcodes as a list on a string for the text file.
-        for item in data[id]["Items"]:
-            if data[id]["Items"][item]["ProcessStatus"] == "LOST":
-                        itemsLost = itemsLost + "\'" + data[id]["Items"][item]["Title"] + "\',"
-                        itemBarcodes = itemBarcodes + str(data[id]["Items"][item]["Barcode"]) + ","
+        for item in data[cell_user_id]["Items"]:
+            if data[cell_user_id]["Items"][item]["ProcessStatus"] == "LOST":
+                        itemsLost = itemsLost + "\'" + data[cell_user_id]["Items"][item]["Title"] + "\',"
+                        itemBarcodes = itemBarcodes + str(data[cell_user_id]["Items"][item]["Barcode"]) + ","
 
         if itemsLost == "":
             # This person does not match the requirements to be suspended, their items are overdue but not lost.
@@ -153,7 +153,7 @@ with open(outputFilePath, "w", encoding='utf-8') as file:
 
             suspensionNote = suspensionNote + itemsLost + "]-unresolved- " + str(currentDate.month) + "/" + str(currentDate.day) + "/" + str(currentDate.year) + "-" + initials
             # Legal letter.
-            if data[id]["DaysOverdue"] > legalLetterRequirement and breakLine == False:
+            if data[cell_user_id]["DaysOverdue"] > legalLetterRequirement and breakLine == False:
                 breakLine = True
                 file.write("\n\n\n\nThe following are people who are eligible to receive a legal letter. Fees are not taken into an account int this list. Requirement: " + str(legalLetterRequirement) + " days overdue.\n\n\n\n")
                  
@@ -164,7 +164,7 @@ with open(outputFilePath, "w", encoding='utf-8') as file:
             Suspension note. (You can triple click this line in the text file to easily copy it.)
             Item barcodes in order of the list on the suspension note.
             '''
-            file.write("UserId: " + str(id) + "\nName: " + str(data[id]["Name"]) + "\n" + str(data[id]["DaysOverdue"]) + " days overdue.\n" + suspensionNote + "\nThese are the item barcodes in order: " + itemBarcodes + "\n")
+            file.write("UserId: " + str(cell_user_id) + "\nName: " + str(data[cell_user_id]["Name"]) + "\n" + str(data[cell_user_id]["DaysOverdue"]) + " days overdue.\n" + suspensionNote + "\nThese are the item barcodes in order: " + itemBarcodes + "\n")
 
 # This opens up the exported text file.
 try:
