@@ -4,7 +4,7 @@ import os
 from datetime import date
 
 # The date.
-currentDate = date.today()
+current_date = date.today()
 
 # Directory URL which will be assigned from user-input.
 # Initials to go at the end of the suspension note, also assigned from user-input.
@@ -21,7 +21,7 @@ try:
 except:
     print(f"Alma Automatic Suspension Directory found in: {outputFilePath}")
 
-outputFilePath = outputFilePath + "/alma-automatic-suspension-output-" + str(currentDate.month) + "-" + str(currentDate.day) + "-" + str(currentDate.year) + ".txt"
+outputFilePath = outputFilePath + "/alma-automatic-suspension-output-" + str(current_date.month) + "-" + str(current_date.day) + "-" + str(current_date.year) + ".txt"
 
 # These variables are in regards to legal letters. BreakLine is the line to seperate the legal letter suspensions.
 # legalLetterRequirement is the count of days an item can be overdue before being sent a legal letter, if it's one day over it gets seperated.
@@ -151,7 +151,7 @@ with open(outputFilePath, "w", encoding='utf-8') as file:
             itemsLost = itemsLost[:len(itemsLost)-1]
             itemBarcodes = itemBarcodes[:len(itemBarcodes)-1]
 
-            suspensionNote = suspensionNote + itemsLost + "]-unresolved- " + str(currentDate.month) + "/" + str(currentDate.day) + "/" + str(currentDate.year) + "-" + initials
+            suspensionNote = suspensionNote + itemsLost + "]-unresolved- " + str(current_date.month) + "/" + str(current_date.day) + "/" + str(current_date.year) + "-" + initials
             # Legal letter.
             if data[cell_user_id]["DaysOverdue"] > legalLetterRequirement and breakLine == False:
                 breakLine = True
