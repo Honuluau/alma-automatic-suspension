@@ -24,7 +24,7 @@ Please go to your Alma Dashboard.
 7. You can find this file under downloads in the file explorer.
 
 ### Using the python script.
-Open the python (.py) file that is already in EVE 2.0 or the one downloaded from this gitHub page. 
+Open the python (.py) file that is already in EVE 2.0 or the one downloaded from this github page. 
 1. Once prompted, input your initials into the window.
 2. Confirm your initials.
 3. Please drag your Excel sheet from your downloads folder into the terminal as shown below:  
