@@ -19,7 +19,7 @@ breakLine = False
 legalLetterRequirement = 30
 
 # This is a loop to confirm your initials to display near the end of the suspension note.
-while (initials == ""):
+while initials == "":
     newInitials = input("Please insert your initials: ")
     confirmation = input("The format for the note will be: -" + str(newInitials) + "  | Is this correct? Y or N \n")
 
@@ -27,7 +27,7 @@ while (initials == ""):
         initials = newInitials
 
 # This is a loop to get a working directory url to the excel sheet. If the format has backslashes, it will be convertered for use.
-while (url == ""):
+while url == "":
     newUrl = input("Please drag the file to this window, and make sure this window is selected, then press enter:\n")
     newUrl = newUrl.replace("\"", "")
     newUrl = newUrl.replace("\\", "/")
