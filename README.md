@@ -1,4 +1,5 @@
 # Alma automatic suspension
+Github repository: [https://github.com/Honuluau/alma-automatic-suspension](https://github.com/Honuluau/alma-automatic-suspension)
 
 This is an easy-to-use python script that automatically lists and formats a suspension note of a student with overdue items. The script does not suspend people automatically, human supervision is required. The user must copy and paste the formatted suspension note to the `Add Note` block in Alma.
 
