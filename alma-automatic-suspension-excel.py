@@ -21,6 +21,7 @@ try:
     print(f"Alma Automatic Suspension Directory created in : {output_file_path}")
 except:
     print(f"Alma Automatic Suspension Directory found in: {output_file_path}")
+    output_file_path = output_file_path + "/Alma-Automatic-Suspensions"
 
 output_file_path = output_file_path + "/alma-automatic-suspension-output-" + str(current_date.month) + "-" + str(current_date.day) + "-" + str(current_date.year) + ".txt"
 
