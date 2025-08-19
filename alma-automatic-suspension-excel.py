@@ -31,9 +31,18 @@ def iterate_rows_to_form_data(df_data):
         eagle_id = row_data[0]
 
         if pd.isna(eagle_id):
-            print("Not a number")
+            # Adding Item
+            print("Adding item.")
         else:
-            print("Valid!")
+            # Creating new data
+            current_id = eagle_id
+
+            data[eagle_id] = {}
+            data[eagle_id]["first_name"] = row_data[1]
+            data[eagle_id]["last_name"] = row_data[2]
+            data[eagle_id]["items"] = {}
+
+            print(f"Adding user data for {eagle_id} ({row_data[1], row_data[2]})")
 
     input("Test")
 
