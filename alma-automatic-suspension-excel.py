@@ -15,17 +15,26 @@ def set_initials():
         if str.lower(confirmation) == "y":
             initials = new_initials
 
-print(initials)
-
 def get_file_path():
     return askopenfilename(title="Select Fulfillment - Loans Returns and Overdue Dashboard", filetypes=[("Fulfillment Report", "*.xlsx")])
 
-file_path = get_file_path()
+def get_df_data(file_path):
+    df = pd.read_excel(file_path, header=None)
+    return df.iloc[13:] # Skips to row 13 because the fulfillment report has a lot of blank space.
 
-df = pd.read_excel(file_path, header=None)
-df_data = df.iloc[13:]
+def iterate_rows_to_form_data(df_data):
+    data = {}
 
-for index, row in df_data.iterrows():
-    print(f"Row {index}: {row.tolist()}")
+    current_id = 0
+    for index, row in df_data.iterrows():
+        row_data = row.tolist()
+        eagle_id = row_data[0]
 
-input("Test")
+        if pd.isna(eagle_id):
+            print("Not a number")
+        else:
+            print("Valid!")
+
+    input("Test")
+
+iterate_rows_to_form_data(get_df_data(get_file_path()))
