@@ -36,6 +36,7 @@ def iterate_rows_to_form_data(df_data):
         row_data = row.tolist()
         eagle_id = row_data[0]
         days_overdue = row_data[6]
+        recent_due = row_data[5]
         if pd.isna(eagle_id):
             # Adding Item
             data[current_id]["items"].append((row_data[8], row_data[7]))
@@ -44,6 +45,9 @@ def iterate_rows_to_form_data(df_data):
             if days_overdue > data[current_id]["overdue"]:
                 data[current_id]["overdue"] = days_overdue
 
+            # Update recent overdue day
+            if recent_due > data[current_id]["recent"]:
+                data[current_id]["recent"] = recent_due
         else:
             # Creating new data
             current_id = eagle_id
@@ -51,6 +55,7 @@ def iterate_rows_to_form_data(df_data):
             data[eagle_id] = {}
             data[eagle_id]["first_name"] = row_data[1]
             data[eagle_id]["last_name"] = row_data[2]
+            data[eagle_id]["recent"] = row_data[5]
             data[eagle_id]["overdue"] = days_overdue
             data[eagle_id]["items"] = []
 
@@ -87,12 +92,13 @@ def format_suspension_note(items):
     return f"SUSPENDED / Instance#X / LOST {item_string} -unresolved- {current_date} -{initials}"
 
 def write_csv_log(data, path):
-    rows = [["Eagle Id", "Name", "Longest Overdue (Days)", "Number of Items", "Suspension Note"]]
+    rows = [["Eagle Id", "Name", "Most Recent Overdue","Longest Overdue (Days)", "Number of Items", "Suspension Note"]]
     for eagle_id in data:
         rows.append([
             eagle_id,
             f"{data[eagle_id]["last_name"]},"
             f" {data[eagle_id]["first_name"]}",
+            data[eagle_id]["recent"],
             data[eagle_id]["overdue"],
             len(data[eagle_id]["items"]),
             format_suspension_note(data[eagle_id]["items"])
